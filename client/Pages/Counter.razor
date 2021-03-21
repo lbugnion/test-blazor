@@ -1,0 +1,20 @@
+@page "/counter"
+
+<h1>Future Tech</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private long currentCount = 0;
+
+    private async Task IncrementCount()
+    {
+        var client = new HttpClient();
+
+        var ticks = await client.GetStringAsync("/api/GetTicks");
+
+        currentCount = long.Parse(ticks);
+    }
+}
